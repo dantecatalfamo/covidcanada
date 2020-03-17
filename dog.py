@@ -5,6 +5,13 @@ import os
 import sys
 import json
 
+def rewrite_date(date):
+        split = date.split("/")
+        month = split[0]
+        day = split[1]
+        year = "20" + split[2]
+        return "{}-{}-{}".format(year, month, day)
+
 os.chdir(sys.path[0])
 
 if os.path.exists("COVID-19"):
@@ -47,7 +54,7 @@ for province_line in confirmed:
         province_deaths = [x for x in deaths if x[0] == province][0][num]
         print("Date:", date, "Confirmed:", province_confirm, "Recovered:", province_recovered, "Deaths:", province_deaths)
         day = {
-            "date": date,
+            "date": rewrite_date(date),
             "confirmed": province_confirm,
             "recovered": province_recovered,
             "deaths": province_deaths,
