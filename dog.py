@@ -3,14 +3,7 @@
 import csv
 import os
 import sys
-from datadog import statsd
-
-class Day:
-    def __init__(self, date, confirmed, recovered, deaths):
-        self.date = date
-        self.confirmed = confirmed
-        self.recovered = recovered
-        self.deaths = deaths
+import json
 
 os.chdir(sys.path[0])
 
@@ -50,8 +43,16 @@ for province_line in confirmed:
         if num <= 3:
             continue
         province_confirm = province_line[num]
-        province_deaths = [x for x in deaths if x[0] == province][0][num]
         province_recovered = [x for x in recovered if x[0] == province][0][num]
+        province_deaths = [x for x in deaths if x[0] == province][0][num]
         print("Date:", date, "Confirmed:", province_confirm, "Recovered:", province_recovered, "Deaths:", province_deaths)
-        day = Day(date, province_confirm, province_recovered, province_deaths)
+        day = {
+            "date": date,
+            "confirmed": province_confirm,
+            "recovered": province_recovered,
+            "deaths": province_deaths,
+        }
         provinces[province].append(day)
+
+with open('../../../static/provinces.json', 'w') as f:
+    json.dump(provinces, f)
