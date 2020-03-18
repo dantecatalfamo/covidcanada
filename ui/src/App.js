@@ -13,20 +13,20 @@ const { Header, Footer, Content } = Layout;
 
 function App() {
   const [provinces, setProvinces] = useState({});
+
   useJsonUpdates(provincesURL, setProvinces, updateTime);
-  console.log(provinces);
   const charts = Object.entries(provinces).map(([province, data]) => {
     const confirmedCurrent = data[data.length-1].confirmed || 0;
     const confirmedLast = data[data.length-2].confirmed || 0;
     const confirmedIncrease = confirmedCurrent - confirmedLast;
     const confirmedIncreasing = !(confirmedIncrease < 0);
+    const confirmedArrow = confirmedIncreasing ? <ArrowUpOutlined/> : <ArrowDownOutlined/>;
     let confirmedPercent;
     if (confirmedLast == 0) {
       confirmedPercent = confirmedIncrease * 100;
     } else {
       confirmedPercent = 100 * confirmedIncrease/confirmedLast;
     }
-    const arrow = confirmedIncreasing ? <ArrowUpOutlined/> : <ArrowDownOutlined/>;
     const recoveredCurrent = data[data.length-1].recovered || 0;
     const deathsCurrent = data[data.length-1].deaths || 0;
     return (
@@ -42,7 +42,7 @@ function App() {
                 <Tooltip/>
                 <Legend/>
                 <XAxis dataKey="date" />
-                <YAxis allowDecimals={false}/>
+                <YAxis allowDecimals={false} />
               </LineChart>
             </ResponsiveContainer>
           </Card.Grid>
