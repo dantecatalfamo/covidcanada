@@ -27,6 +27,8 @@ function App() {
       confirmedPercent = 100 * confirmedIncrease/confirmedLast;
     }
     const arrow = confirmedIncreasing ? <ArrowUpOutlined/> : <ArrowDownOutlined/>;
+    const recoveredCurrent = data[data.length-1].recovered || 0;
+    const deathsCurrent = data[data.length-1].deaths || 0;
     return (
       <Col span={12}>
         <Card title={province}>
@@ -46,15 +48,16 @@ function App() {
           </Card.Grid>
           <Card.Grid hoverable={false} style={{width: "30%", height: "248px"}}>
             <Statistic
-              title="New Cases"
-              value={confirmedIncrease}
+              title="Confirmed"
+              value={confirmedCurrent}
             />
             <Statistic
-              // title="Percent change"
-              value={confirmedPercent}
-              precision={2}
-              prefix={arrow}
-              suffix="%"
+              title="Recovered"
+              value={recoveredCurrent}
+            />
+            <Statistic
+              title="Deaths"
+              value={deathsCurrent}
             />
             <data/>
           </Card.Grid>
