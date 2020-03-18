@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Card, Row, Col, Statistic } from 'antd';
+import { Layout, Card, Row, Col, Statistic, Typography } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, MinusOutlined } from '@ant-design/icons';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { useJsonUpdates } from './helpers';
@@ -246,7 +246,15 @@ function App() {
   return (
     <div className="App">
       <Layout>
-        <Header>Header</Header>
+        <Header>
+          <h2 style={{
+            color: "rgba(255, 255, 255, 0.85)",
+            fontWeight: 600,
+            fontSize: "30px"
+          }}>
+            COVID-19 in Canada
+          </h2>
+        </Header>
         <Content>
           <Row>
             <Col span={20} offset={2}>
@@ -263,7 +271,10 @@ function App() {
             </Col>
           </Row>
         </Content>
-        <Footer>Data from <a href="https://github.com/CSSEGISandData/COVID-19">CSSE at Johns Hopkins University</a></Footer>
+        <Footer>
+          <a href="https://github.com/dantecatalfamo/corona-dog">Github</a><br/>
+          Data from <a href="https://github.com/CSSEGISandData/COVID-19">CSSE at Johns Hopkins University</a>
+        </Footer>
       </Layout>
     </div>
   );
