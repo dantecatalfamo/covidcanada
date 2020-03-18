@@ -55,9 +55,9 @@ for province_line in confirmed:
         print("Date:", date, "Confirmed:", province_confirm, "Recovered:", province_recovered, "Deaths:", province_deaths)
         day = {
             "date": rewrite_date(date),
-            "confirmed": province_confirm,
-            "recovered": province_recovered,
-            "deaths": province_deaths,
+            "confirmed": int(province_confirm),
+            "recovered": int(province_recovered),
+            "deaths": int(province_deaths),
         }
         provinces[province].append(day)
 
