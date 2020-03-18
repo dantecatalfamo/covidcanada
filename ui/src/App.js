@@ -9,6 +9,8 @@ import './App.css';
 const provincesURL = "/static/provinces.json";
 const updateTime = 10000; //60 * 60 * 1000; // Once an hour
 
+const { Header, Footer, Content } = Layout;
+
 function percentChange(increase, last) {
   if (last == 0) {
     return 100 * increase;
@@ -16,9 +18,17 @@ function percentChange(increase, last) {
   return 100 * increase/last;
 }
 
-const { Header, Footer, Content } = Layout;
+function compareProvinces(a, b) {
+  if (a.province < b.province){
+    return -1;
+  }
+  if (a.province > b.province){
+    return 1;
+  }
+  return 0;
+}
 
-function provinceChart([province, data]) {
+function provinceChart({province, data}) {
   const confirmedCurrent = data[data.length-1].confirmed || 0;
   const confirmedLast = data[data.length-2].confirmed || 0;
   const confirmedIncrease = confirmedCurrent - confirmedLast;
@@ -73,7 +83,9 @@ function App() {
   const [provinces, setProvinces] = useState({});
 
   useJsonUpdates(provincesURL, setProvinces, updateTime);
-  const charts = Object.entries(provinces).map(provinceChart);
+  const provinceArray = Object.entries(provinces).map(([province, data]) => ({province, data}));
+  provinceArray.sort(compareProvinces);
+  const provinceCharts = provinceArray.map(provinceChart);
   return (
     <div className="App">
       <Layout>
@@ -82,7 +94,7 @@ function App() {
           <Row>
             <Col span={20} offset={2}>
               <Row gutter={[8, 8]}>
-                {charts}
+                {provinceCharts}
               </Row>
             </Col>
           </Row>
