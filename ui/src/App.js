@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Card, Row, Col, Statistic, Typography } from 'antd';
+import { Layout, Card, Row, Col, Statistic, Typography, Button } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, MinusOutlined } from '@ant-design/icons';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { useJsonUpdates } from './helpers';
@@ -268,6 +268,24 @@ function App() {
               <Row gutter={[8, 8]}>
                 {provinceCharts}
               </Row>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={20} offset={2}>
+              <Card title="Further Reading">
+                <Button
+                  href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html"
+                  type="link"
+                >Government of Canada</Button>
+                <Button
+                  href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+                  type="link"
+                >World Health Organization</Button>
+                <Button
+                  href="https://www.cbc.ca/news/coronavirus-guide-explainer-1.5497009"
+                  type="link"
+                >CBC</Button>
+              </Card>
             </Col>
           </Row>
         </Content>
