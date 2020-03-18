@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Layout, Card, Row, Col } from 'antd';
+import { Layout, Card, Row, Col, Statistic } from 'antd';
+import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useJsonUpdates } from './helpers';
 import './App.css';
@@ -18,21 +19,23 @@ function App() {
     const confirmedCurrent = data[data.length-1].confirmed || 0;
     const confirmedLast = data[data.length-2].confirmed || 0;
     const confirmedIncrease = confirmedCurrent - confirmedLast;
-    let percent;
+    const confirmedIncreasing = !(confirmedIncrease < 0);
+    let confirmedPercent;
     if (confirmedLast == 0) {
-      percent = confirmedIncrease * 100;
+      confirmedPercent = confirmedIncrease * 100;
     } else {
-      percent = 100 * confirmedIncrease/confirmedLast;
+      confirmedPercent = 100 * confirmedIncrease/confirmedLast;
     }
+    const arrow = confirmedIncreasing ? <ArrowUpOutlined/> : <ArrowDownOutlined/>;
     return (
       <Col span={12}>
         <Card title={province}>
           <Card.Grid hoverable={false} style={{width: "70%"}}>
             <ResponsiveContainer height={200} width="100%">
               <LineChart data={data}>
-                <Line type="monotone" dot={false} dataKey="confirmed"/>
-                <Line type="monotone" dot={false} dataKey="recovered" stroke="green"/>
-                <Line type="monotone" dot={false} dataKey="deaths" stroke="red"/>
+                <Line type="monotone" dot={false} dataKey="confirmed" name="Confirmed" />
+                <Line type="monotone" dot={false} dataKey="recovered" name="Recovered" stroke="green"/>
+                <Line type="monotone" dot={false} dataKey="deaths" name="Deaths" stroke="red"/>
                 <CartesianGrid/>
                 <Tooltip/>
                 <Legend/>
@@ -42,16 +45,17 @@ function App() {
             </ResponsiveContainer>
           </Card.Grid>
           <Card.Grid hoverable={false} style={{width: "30%", height: "248px"}}>
-            <h3>24 Hours</h3>
-            <p>
-              {confirmedLast} → {confirmedCurrent}
-            </p>
-            <p>
-              +{confirmedIncrease}
-            </p>
-            <p>
-              +%{percent.toFixed(2)}
-            </p>
+            <Statistic
+              title="New Cases"
+              value={confirmedIncrease}
+            />
+            <Statistic
+              // title="Percent change"
+              value={confirmedPercent}
+              precision={2}
+              prefix={arrow}
+              suffix="%"
+            />
             <data/>
           </Card.Grid>
         </Card>
