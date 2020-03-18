@@ -272,7 +272,7 @@ function App() {
           </Row>
         </Content>
         <Footer>
-          <a href="https://github.com/dantecatalfamo/corona-dog">Github</a><br/>
+          <a href="https://github.com/dantecatalfamo/covidcanada">Github</a><br/>
           Data from <a href="https://github.com/CSSEGISandData/COVID-19">CSSE at Johns Hopkins University</a>
         </Footer>
       </Layout>
