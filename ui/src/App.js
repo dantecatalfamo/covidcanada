@@ -43,9 +43,9 @@ function provinceChart({province, data}) {
 
   const deathsCurrent = data[data.length-1].deaths || 0;
   return (
-    <Col span={12}>
+    <Col span={24} xl={12}>
       <Card title={province}>
-        <Card.Grid hoverable={false} style={{width: "70%"}}>
+        <Card.Grid hoverable={false} style={{width: "75%"}}>
           <ResponsiveContainer height={200} width="100%">
             <LineChart data={data}>
               <Line type="monotone" dot={false} dataKey="confirmed" name="Confirmed" />
@@ -59,7 +59,7 @@ function provinceChart({province, data}) {
             </LineChart>
           </ResponsiveContainer>
         </Card.Grid>
-        <Card.Grid hoverable={false} style={{width: "30%", height: "248px"}}>
+        <Card.Grid hoverable={false} style={{width: "25%", height: "248px"}}>
           <Statistic
             title="Confirmed"
             value={confirmedCurrent}
