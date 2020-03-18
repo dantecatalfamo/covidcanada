@@ -18,60 +18,62 @@ function percentChange(increase, last) {
 
 const { Header, Footer, Content } = Layout;
 
+function provinceChart([province, data]) {
+  const confirmedCurrent = data[data.length-1].confirmed || 0;
+  const confirmedLast = data[data.length-2].confirmed || 0;
+  const confirmedIncrease = confirmedCurrent - confirmedLast;
+  const confirmedIncreasing = !(confirmedIncrease < 0);
+  const confirmedArrow = confirmedIncreasing ? <ArrowUpOutlined/> : <ArrowDownOutlined/>;
+  const confirmedPercent = percentChange(confirmedIncrease, confirmedLast);
+
+  const recoveredCurrent = data[data.length-1].recovered || 0;
+  const recoveredLast = data[data.length-2].recovered || 0;
+  const recoveredIncrease = recoveredCurrent - recoveredLast;
+  const recoveredPercent = percentChange(recoveredIncrease, recoveredLast);
+
+  const deathsCurrent = data[data.length-1].deaths || 0;
+  return (
+    <Col span={12}>
+      <Card title={province}>
+        <Card.Grid hoverable={false} style={{width: "70%"}}>
+          <ResponsiveContainer height={200} width="100%">
+            <LineChart data={data}>
+              <Line type="monotone" dot={false} dataKey="confirmed" name="Confirmed" />
+              <Line type="monotone" dot={false} dataKey="recovered" name="Recovered" stroke="green"/>
+              <Line type="monotone" dot={false} dataKey="deaths" name="Deaths" stroke="red"/>
+              <CartesianGrid/>
+              <Tooltip/>
+              <Legend/>
+              <XAxis dataKey="date" />
+              <YAxis allowDecimals={false} />
+            </LineChart>
+          </ResponsiveContainer>
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={{width: "30%", height: "248px"}}>
+          <Statistic
+            title="Confirmed"
+            value={confirmedCurrent}
+          />
+          <Statistic
+            title="Recovered"
+            value={recoveredCurrent}
+          />
+          <Statistic
+            title="Deaths"
+            value={deathsCurrent}
+          />
+          <data/>
+        </Card.Grid>
+      </Card>
+    </Col>
+  );
+}
+
 function App() {
   const [provinces, setProvinces] = useState({});
 
   useJsonUpdates(provincesURL, setProvinces, updateTime);
-  const charts = Object.entries(provinces).map(([province, data]) => {
-    const confirmedCurrent = data[data.length-1].confirmed || 0;
-    const confirmedLast = data[data.length-2].confirmed || 0;
-    const confirmedIncrease = confirmedCurrent - confirmedLast;
-    const confirmedIncreasing = !(confirmedIncrease < 0);
-    const confirmedArrow = confirmedIncreasing ? <ArrowUpOutlined/> : <ArrowDownOutlined/>;
-    const confirmedPercent = percentChange(confirmedIncrease, confirmedLast);
-
-    const recoveredCurrent = data[data.length-1].recovered || 0;
-    const recoveredLast = data[data.length-2].recovered || 0;
-    const recoveredIncrease = recoveredCurrent - recoveredLast;
-    const recoveredPercent = percentChange(recoveredIncrease, recoveredLast);
-
-    const deathsCurrent = data[data.length-1].deaths || 0;
-    return (
-      <Col span={12}>
-        <Card title={province}>
-          <Card.Grid hoverable={false} style={{width: "70%"}}>
-            <ResponsiveContainer height={200} width="100%">
-              <LineChart data={data}>
-                <Line type="monotone" dot={false} dataKey="confirmed" name="Confirmed" />
-                <Line type="monotone" dot={false} dataKey="recovered" name="Recovered" stroke="green"/>
-                <Line type="monotone" dot={false} dataKey="deaths" name="Deaths" stroke="red"/>
-                <CartesianGrid/>
-                <Tooltip/>
-                <Legend/>
-                <XAxis dataKey="date" />
-                <YAxis allowDecimals={false} />
-              </LineChart>
-            </ResponsiveContainer>
-          </Card.Grid>
-          <Card.Grid hoverable={false} style={{width: "30%", height: "248px"}}>
-            <Statistic
-              title="Confirmed"
-              value={confirmedCurrent}
-            />
-            <Statistic
-              title="Recovered"
-              value={recoveredCurrent}
-            />
-            <Statistic
-              title="Deaths"
-              value={deathsCurrent}
-            />
-            <data/>
-          </Card.Grid>
-        </Card>
-      </Col>
-    );
-  });
+  const charts = Object.entries(provinces).map(provinceChart);
   return (
     <div className="App">
       <Layout>
