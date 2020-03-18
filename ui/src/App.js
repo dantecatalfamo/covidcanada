@@ -3,11 +3,18 @@ import { Layout, Card, Row, Col, Statistic } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useJsonUpdates } from './helpers';
-import './App.css';
 import 'antd/dist/antd.css';
+import './App.css';
 
 const provincesURL = "/static/provinces.json";
 const updateTime = 10000; //60 * 60 * 1000; // Once an hour
+
+function percentChange(increase, last) {
+  if (last == 0) {
+    return 100 * increase;
+  }
+  return 100 * increase/last;
+}
 
 const { Header, Footer, Content } = Layout;
 
@@ -21,13 +28,13 @@ function App() {
     const confirmedIncrease = confirmedCurrent - confirmedLast;
     const confirmedIncreasing = !(confirmedIncrease < 0);
     const confirmedArrow = confirmedIncreasing ? <ArrowUpOutlined/> : <ArrowDownOutlined/>;
-    let confirmedPercent;
-    if (confirmedLast == 0) {
-      confirmedPercent = confirmedIncrease * 100;
-    } else {
-      confirmedPercent = 100 * confirmedIncrease/confirmedLast;
-    }
+    const confirmedPercent = percentChange(confirmedIncrease, confirmedLast);
+
     const recoveredCurrent = data[data.length-1].recovered || 0;
+    const recoveredLast = data[data.length-2].recovered || 0;
+    const recoveredIncrease = recoveredCurrent - recoveredLast;
+    const recoveredPercent = percentChange(recoveredIncrease, recoveredLast);
+
     const deathsCurrent = data[data.length-1].deaths || 0;
     return (
       <Col span={12}>
@@ -70,8 +77,12 @@ function App() {
       <Layout>
         <Header>Header</Header>
         <Content>
-          <Row gutter={[8, 8]}>
-            {charts}
+          <Row>
+            <Col span={20} offset={2}>
+              <Row gutter={[8, 8]}>
+                {charts}
+              </Row>
+            </Col>
           </Row>
         </Content>
         <Footer>Data from <a href="https://github.com/CSSEGISandData/COVID-19">CSSE at Johns Hopkins University</a></Footer>
