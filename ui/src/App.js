@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 import './App.css';
 
 const provincesURL = "/static/provinces.json";
-const updateTime = 10000; //60 * 60 * 1000; // Once an hour
+const updateTime = 60 * 60 * 1000; // Once an hour
 
 const { Header, Footer, Content } = Layout;
 
