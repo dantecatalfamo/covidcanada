@@ -12,17 +12,42 @@ function App() {
   console.log(provinces);
   const charts = Object.entries(provinces).map(([province, data]) => {
     console.log(province);
+    const confirmedCurrent = data[data.length-1].confirmed || 0;
+    const confirmedLast = data[data.length-2].confirmed || 0;
+    const confirmedIncrease = confirmedCurrent - confirmedLast;
+    let percent;
+    if (confirmedLast == 0) {
+      percent = confirmedIncrease * 100;
+    } else {
+      percent = 100 * confirmedIncrease/confirmedLast;
+    }
     return (
-      <LineChart data={data} height={400} width={400} key={province}>
-        <Line type="monotone" dataKey="confirmed"/>
-        <Line type="monotone" dataKey="recovered" stroke="green"/>
-        <Line type="monotone" dataKey="deaths" stroke="red"/>
-        <CartesianGrid/>
-        <Tooltip/>
-        <Legend/>
-        <XAxis dataKey="date" />
-        <YAxis allowDecimals={false}/>
-      </LineChart>
+      <div key={province}>
+        <h2>{province}</h2>
+        <LineChart data={data} height={400} width={400}>
+          <Line type="monotone" dot={false} dataKey="confirmed"/>
+          <Line type="monotone" dot={false} dataKey="recovered" stroke="green"/>
+          <Line type="monotone" dot={false} dataKey="deaths" stroke="red"/>
+          <CartesianGrid/>
+          <Tooltip/>
+          <Legend/>
+          <XAxis dataKey="date" />
+          <YAxis allowDecimals={false}/>
+        </LineChart>
+        <div>
+          <h3>24 Hours</h3>
+          <p>
+            {confirmedLast} → {confirmedCurrent}
+          </p>
+          <p>
+            +{confirmedIncrease}
+          </p>
+          <p>
+            +%{percent.toFixed(2)}
+          </p>
+          <data/>
+        </div>
+      </div>
     );
   });
   return (
