@@ -11,6 +11,8 @@ echo "[*] Clearing old build"
 rm -rf build
 echo "[*] Building..."
 npm run-script build
+echo "[*] Clearing current live"
+rm -rf ../live
 echo "[*] Moving to live directory"
 mv build ../live
 echo "[*] Generating new data"
