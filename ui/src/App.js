@@ -102,7 +102,7 @@ function App() {
         </Content>
         <Footer>
           Project by Dante Catalfamo, source on <a href="https://github.com/dantecatalfamo/covidcanada">Github</a><br/>
-          Data from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a><br/>
+          Data from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>, pulled once an hour<br/>
           Provinces and territories not displayed are not present in the data source
         </Footer>
       </Layout>
