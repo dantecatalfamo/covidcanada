@@ -19,7 +19,7 @@ if [ "$?" -ne 0 ]; then
 fi
 echo "[*] Removing old live"
 rm -rf ../live-old
-echo "[*] Clearing current live"
+echo "[*] Backing up current live"
 mv ../live ../live-old
 echo "[*] Moving to live directory"
 mv build ../live
