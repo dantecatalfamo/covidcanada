@@ -189,7 +189,7 @@ function canadaGraph(data) {
       <Row>
         <Col lg={20} span={24}>
           <div style={{marginRight: 15}}>
-            <ResponsiveContainer height={300} width="100%">
+            <ResponsiveContainer height={400} width="100%">
               <AreaChart data={data}>
                 {Object.keys(data[0]).map(key => {
                   const colour = provinceColours[key];
