@@ -84,7 +84,6 @@ function provinceChart({province, data}) {
                   <Line type="monotone" dot={false} dataKey="confirmed" name="Confirmed" />
                   <Line type="monotone" dot={false} dataKey="recovered" name="Recovered" stroke="green"/>
                   <Line type="monotone" dot={false} dataKey="deaths" name="Deaths" stroke="red"/>
-                  <CartesianGrid/>
                   <Tooltip/>
                   <Legend/>
                   <XAxis dataKey="date" />
@@ -203,8 +202,10 @@ function canadaGraph(data) {
                       key={key}/>
                   );
                 })}
-                <CartesianGrid />
-                <XAxis dataKey="date" />
+                <XAxis
+                  dataKey="date"
+                  interval="preserveStartEnd"
+                />
                 <YAxis />
                 <Tooltip wrapperStyle={{zIndex: 1}}/>
                 <Legend />
