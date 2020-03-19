@@ -62,7 +62,7 @@ function App() {
                   </Col>
                 </Row>
               </div>
-              <Divider>Princial Breakdown</Divider>
+              <Divider>Provincial Breakdown</Divider>
               <Row gutter={[8, 8]}>
                 {provinceCharts}
               </Row>
