@@ -46,3 +46,20 @@ export function useJsonUpdates(url, setter, updateTime) {
     return () => clearInterval(interval);
   }, [url, updateTime]);
 }
+
+export function percentChange(increase, last) {
+  if (last === 0) {
+    return 100 * increase;
+  }
+  return 100 * increase/last;
+}
+
+export function compareProvinces(a, b) {
+  if (a.province < b.province){
+    return -1;
+  }
+  if (a.province > b.province){
+    return 1;
+  }
+  return 0;
+}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout, Card, Row, Col, Statistic, Typography, Button } from 'antd';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import CanadaGraph from './CanadaGraph';
-import { useJsonUpdates, getArrow } from './helpers';
+import { useJsonUpdates, getArrow, percentChange, compareProvinces } from './helpers';
 import 'antd/dist/antd.css';
 import './App.css';
 
@@ -10,23 +10,6 @@ const provincesURL = "/provinces.json";
 const updateTime = 60 * 60 * 1000; // Once an hour
 
 const { Header, Footer, Content } = Layout;
-
-function percentChange(increase, last) {
-  if (last === 0) {
-    return 100 * increase;
-  }
-  return 100 * increase/last;
-}
-
-function compareProvinces(a, b) {
-  if (a.province < b.province){
-    return -1;
-  }
-  if (a.province > b.province){
-    return 1;
-  }
-  return 0;
-}
 
 function provinceChart({province, data}) {
   const confirmedCurrent = data[data.length-1].confirmed;
