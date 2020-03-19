@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Card, Row, Col, Statistic, Typography, Button } from 'antd';
+import { Layout, Card, Row, Col, Statistic, Typography, Button, Divider } from 'antd';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import CanadaChart from './CanadaChart';
 import ProvinceChart from './ProvinceChart';
@@ -62,6 +62,7 @@ function App() {
                   </Col>
                 </Row>
               </div>
+              <Divider>Princial Breakdown</Divider>
               <Row gutter={[8, 8]}>
                 {provinceCharts}
               </Row>
