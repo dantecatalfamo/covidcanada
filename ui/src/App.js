@@ -187,7 +187,7 @@ function canadaGraph(data) {
   return (
     <Card title="Confirmed Canada-wide">
       <Row>
-        <Col span={20}>
+        <Col lg={20} span={24}>
           <div style={{marginRight: 15}}>
             <ResponsiveContainer height={200} width="100%">
               <AreaChart data={data}>
@@ -212,7 +212,7 @@ function canadaGraph(data) {
             </ResponsiveContainer>
           </div>
         </Col>
-        <Col span={4}>
+        <Col lg={4} span={24}>
           <Card>
             <Statistic
               title="Confirmed"
