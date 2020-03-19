@@ -62,6 +62,9 @@ for province_line in confirmed:
 
 os.chdir('../../../')
 
+if not os.path.exists("live"):
+    os.makedirs("live")
+
 with open('live/provinces.json', 'w') as f:
     print("Writing provinces.json")
     json.dump(provinces, f)
