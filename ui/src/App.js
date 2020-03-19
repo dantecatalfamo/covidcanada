@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Layout, Card, Row, Col, Statistic, Typography, Button } from 'antd';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import CanadaGraph from './CanadaGraph';
+import ProvinceGraph from './ProvinceGraph';
 import { useJsonUpdates, getArrow, percentChange, compareProvinces } from './helpers';
 import 'antd/dist/antd.css';
 import './App.css';
@@ -10,111 +11,6 @@ const provincesURL = "/provinces.json";
 const updateTime = 60 * 60 * 1000; // Once an hour
 
 const { Header, Footer, Content } = Layout;
-
-function provinceChart({province, data}) {
-  const confirmedCurrent = data[data.length-1].confirmed;
-  const confirmedLast = data[data.length-2].confirmed;
-  const confirmedIncrease = confirmedCurrent - confirmedLast;
-  const confirmedArrow = getArrow(confirmedIncrease);
-  const confirmedPercent = percentChange(confirmedIncrease, confirmedLast);
-
-  const recoveredCurrent = data[data.length-1].recovered;
-  const recoveredLast = data[data.length-2].recovered;
-  const recoveredIncrease = recoveredCurrent - recoveredLast;
-  const recoveredArrow = getArrow(recoveredIncrease);
-  const recoveredPercent = percentChange(recoveredIncrease, recoveredLast);
-
-  const deathsCurrent = data[data.length-1].deaths;
-  const deathsLast = data[data.length-2].deaths;
-  const deathsIncrease = deathsCurrent - deathsLast;
-  const deathsArrow = getArrow(deathsIncrease);
-  const deathsPercent = percentChange(deathsIncrease, deathsLast);
-
-  return (
-    <Col
-      span={24}
-      key={province}>
-      <Card title={province}>
-        <Row>
-          <Col lg={18} span={24}>
-            <div style={{marginRight: 15}}>
-              <ResponsiveContainer height={200} width="100%">
-                <LineChart data={data}>
-                  <Line type="monotone" dot={false} dataKey="confirmed" name="Confirmed" />
-                  <Line type="monotone" dot={false} dataKey="recovered" name="Recovered" stroke="green"/>
-                  <Line type="monotone" dot={false} dataKey="deaths" name="Deaths" stroke="red"/>
-                  <Tooltip/>
-                  <Legend/>
-                  <XAxis
-                    dataKey="date"
-                    interval="preserveStartEnd"
-                    minTickGap={300}
-                  />
-                  <YAxis allowDecimals={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </Col>
-          <Col lg={6} span={24}>
-            <Card type="inner">
-              <Row>
-                <Col span={8}>
-                  <Statistic
-                    title="Confirmed"
-                    value={confirmedCurrent}
-                  />
-                </Col>
-                <Col span={16}>
-                  <Statistic
-                    title="Confirmed/24h"
-                    value={confirmedPercent}
-                    prefix={confirmedArrow}
-                    precision={2}
-                    suffix="%"
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col span={8}>
-                  <Statistic
-                    title="Recovered"
-                    value={recoveredCurrent}
-                  />
-                </Col>
-                <Col span={16}>
-                  <Statistic
-                    title="Recovered/24h"
-                    value={recoveredPercent}
-                    prefix={recoveredArrow}
-                    precision={2}
-                    suffix="%"
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col span={8}>
-                  <Statistic
-                    title="Deaths"
-                    value={deathsCurrent}
-                  />
-                </Col>
-                <Col span={16}>
-                  <Statistic
-                    title="Deaths/24h"
-                    value={deathsPercent}
-                    prefix={deathsArrow}
-                    precision={2}
-                    suffix="%"
-                  />
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-        </Row>
-      </Card>
-    </Col>
-  );
-}
 
 function toCanada(provinces) {
   const canadaArray = [];
@@ -137,7 +33,9 @@ function App() {
   useJsonUpdates(provincesURL, setProvinces, updateTime);
   const provinceArray = Object.entries(provinces).map(([province, data]) => ({province, data}));
   provinceArray.sort(compareProvinces);
-  const provinceCharts = provinceArray.length ? provinceArray.map(provinceChart) : [];
+  const provinceCharts = provinceArray.length ? provinceArray.map(
+    ({province, data}) => <ProvinceGraph province={province} data={data} />
+  ) : [];
 
   const canadaData = provinceArray.length ? toCanada(provinceArray) : {};
   const canadaChart = canadaData.length ? <CanadaGraph data={canadaData} /> : null;
