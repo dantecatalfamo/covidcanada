@@ -43,7 +43,6 @@ provinces = {}
 
 for province_line in confirmed:
     province = province_line[0]
-    print("Province:", province)
     if province == "Province/State":
         continue
     provinces[province] = []
@@ -53,7 +52,6 @@ for province_line in confirmed:
         province_confirm = province_line[num]
         province_recovered = [x for x in recovered if x[0] == province][0][num]
         province_deaths = [x for x in deaths if x[0] == province][0][num]
-        print("Date:", date, "Confirmed:", province_confirm, "Recovered:", province_recovered, "Deaths:", province_deaths)
         day = {
             "date": rewrite_date(date),
             "confirmed": int(province_confirm),
@@ -65,8 +63,10 @@ for province_line in confirmed:
 os.chdir('../../../')
 
 with open('live/provinces.json', 'w') as f:
+    print("Writing provinces.json")
     json.dump(provinces, f)
 
 with open('live/updated.json', 'w') as f:
     now = datetime.datetime.now().isoformat()
+    print("Writing updated.json")
     json.dump(now, f)
