@@ -4,6 +4,7 @@ import csv
 import os
 import sys
 import json
+import datetime
 
 def rewrite_date(date):
         split = date.split("/")
@@ -56,10 +57,16 @@ for province_line in confirmed:
         day = {
             "date": rewrite_date(date),
             "confirmed": int(province_confirm),
-            "recovered": int(province_recovered),
+                "recovered": int(province_recovered),
             "deaths": int(province_deaths),
         }
         provinces[province].append(day)
 
-with open('../../../static/provinces.json', 'w') as f:
+os.chdir('../../../')
+
+with open('live/provinces.json', 'w') as f:
     json.dump(provinces, f)
+
+with open('live/updated.json', 'w') as f:
+    now = datetime.datetime.now().isoformat()
+    json.dump(now, f)
