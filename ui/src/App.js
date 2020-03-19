@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Layout, Card, Row, Col, Statistic, Typography, Button, Divider, Spin } from 'antd';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import CanadaChart from './CanadaChart';
 import ProvinceChart from './ProvinceChart';
 import { useJsonUpdates, getArrow, percentChange, compareProvinces } from './helpers';
