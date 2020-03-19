@@ -86,7 +86,11 @@ function provinceChart({province, data}) {
                   <Line type="monotone" dot={false} dataKey="deaths" name="Deaths" stroke="red"/>
                   <Tooltip/>
                   <Legend/>
-                  <XAxis dataKey="date" />
+                  <XAxis
+                    dataKey="date"
+                    interval="preserveStartEnd"
+                    minTickGap={300}
+                  />
                   <YAxis allowDecimals={false} />
                 </LineChart>
               </ResponsiveContainer>
@@ -205,6 +209,7 @@ function canadaGraph(data) {
                 <XAxis
                   dataKey="date"
                   interval="preserveStartEnd"
+                  minTickGap={300}
                 />
                 <YAxis />
                 <Tooltip wrapperStyle={{zIndex: 1}}/>
