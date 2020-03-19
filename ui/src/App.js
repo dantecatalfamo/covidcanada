@@ -104,7 +104,7 @@ function provinceChart({province, data}) {
                 </Col>
                 <Col span={16}>
                   <Statistic
-                    title="Δ Confirmed"
+                    title="Confirmed/24h"
                     value={confirmedPercent}
                     prefix={confirmedArrow}
                     precision={2}
@@ -121,7 +121,7 @@ function provinceChart({province, data}) {
                 </Col>
                 <Col span={16}>
                   <Statistic
-                    title="Δ Recovered"
+                    title="Recovered/24h"
                     value={recoveredPercent}
                     prefix={recoveredArrow}
                     precision={2}
@@ -138,7 +138,7 @@ function provinceChart({province, data}) {
                 </Col>
                 <Col span={16}>
                   <Statistic
-                    title="Δ Deaths"
+                    title="Deaths/24h"
                     value={deathsPercent}
                     prefix={deathsArrow}
                     precision={2}
@@ -219,7 +219,7 @@ function canadaGraph(data) {
               value={confirmedCurrent}
             />
             <Statistic
-              title="Δ Confirmed"
+              title="Confirmed/24h"
               value={confirmedPercent}
               precision={2}
               prefix={confirmedArrow}
