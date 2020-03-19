@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Layout, Card, Row, Col, Statistic, Typography, Button } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined, MinusOutlined } from '@ant-design/icons';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { useJsonUpdates } from './helpers';
+import CanadaGraph from './CanadaGraph';
+import { useJsonUpdates, getArrow } from './helpers';
 import 'antd/dist/antd.css';
 import './App.css';
 
@@ -11,35 +11,11 @@ const updateTime = 60 * 60 * 1000; // Once an hour
 
 const { Header, Footer, Content } = Layout;
 
-const provinceColours = {
-  "Alberta": "gold",
-  "British Columbia": "lightblue",
-  "Grand Princess": "grey",
-  "Manitoba": "purple",
-  "New Brunswick": "orange",
-  "Newfoundland and Labrador": "green",
-  "Nova Scotia": "navy",
-  "Ontario": "red",
-  "Prince Edward Island": "brown",
-  "Quebec": "blue",
-  "Saskatchewan": "pink",
-};
-
 function percentChange(increase, last) {
   if (last === 0) {
     return 100 * increase;
   }
   return 100 * increase/last;
-}
-
-function getArrow(change) {
-  if (change > 0) {
-    return <ArrowUpOutlined />;
-  }
-  if (change < 0) {
-    return <ArrowDownOutlined />;
-  }
-  return <MinusOutlined />;
 }
 
 function compareProvinces(a, b) {
@@ -172,72 +148,6 @@ function toCanada(provinces) {
   return canadaArray;
 }
 
-function canadaConfirmed(day) {
-  const values = Object.entries(day).map(([key, value]) => {
-    return key === "date" ? 0 : value;
-  });
-  return values.reduce((a, b) => a + b);
-}
-
-function canadaGraph(data) {
-  const dayCurrent = data[data.length-1];
-  const dayLast = data[data.length-2];
-  const confirmedCurrent = canadaConfirmed(dayCurrent);
-  const confirmedLast = canadaConfirmed(dayLast);
-  const confirmedIncrease = confirmedCurrent - confirmedLast;
-  const confirmedArrow = getArrow(confirmedIncrease);
-  const confirmedPercent = 100 * confirmedIncrease / confirmedLast;
-  return (
-    <Card title="Confirmed Canada-wide">
-      <Row>
-        <Col lg={20} span={24}>
-          <div style={{marginRight: 15}}>
-            <ResponsiveContainer height={450} width="100%">
-              <AreaChart data={data}>
-                {Object.keys(data[0]).map(key => {
-                  const colour = provinceColours[key];
-                  return key === "date" ? null : (
-                    <Area
-                      dataKey={key}
-                      type="monotone"
-                      stackId="canada"
-                      stroke={colour}
-                      fill={colour}
-                      key={key}/>
-                  );
-                })}
-                <XAxis
-                  dataKey="date"
-                  interval="preserveStartEnd"
-                  minTickGap={300}
-                />
-                <YAxis />
-                <Tooltip wrapperStyle={{zIndex: 1}}/>
-                <Legend />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </Col>
-        <Col lg={4} span={24}>
-          <Card>
-            <Statistic
-              title="Confirmed"
-              value={confirmedCurrent}
-            />
-            <Statistic
-              title="Confirmed/24h"
-              value={confirmedPercent}
-              precision={2}
-              prefix={confirmedArrow}
-              suffix="%"
-            />
-          </Card>
-        </Col>
-      </Row>
-    </Card>
-  );
-}
-
 function App() {
   const [provinces, setProvinces] = useState({});
 
@@ -247,7 +157,7 @@ function App() {
   const provinceCharts = provinceArray.length ? provinceArray.map(provinceChart) : [];
 
   const canadaData = provinceArray.length ? toCanada(provinceArray) : {};
-  const canadaChart = canadaData.length ? canadaGraph(canadaData) : null;
+  const canadaChart = canadaData.length ? <CanadaGraph data={canadaData} /> : null;
 
   return (
     <div className="App">
