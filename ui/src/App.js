@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Layout, Card, Row, Col, Statistic, Typography, Button } from 'antd';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import CanadaGraph from './CanadaGraph';
-import ProvinceGraph from './ProvinceGraph';
+import CanadaChart from './CanadaChart';
+import ProvinceChart from './ProvinceChart';
 import { useJsonUpdates, getArrow, percentChange, compareProvinces } from './helpers';
 import 'antd/dist/antd.css';
 import './App.css';
@@ -34,11 +34,11 @@ function App() {
   const provinceArray = Object.entries(provinces).map(([province, data]) => ({province, data}));
   provinceArray.sort(compareProvinces);
   const provinceCharts = provinceArray.length ? provinceArray.map(
-    ({province, data}) => <ProvinceGraph province={province} data={data} />
+    ({province, data}) => <ProvinceChart province={province} data={data} />
   ) : [];
 
   const canadaData = provinceArray.length ? toCanada(provinceArray) : {};
-  const canadaChart = canadaData.length ? <CanadaGraph data={canadaData} /> : null;
+  const canadaChart = canadaData.length ? <CanadaChart data={canadaData} /> : null;
 
   return (
     <div className="App">
