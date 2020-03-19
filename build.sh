@@ -2,6 +2,8 @@
 
 echo "[*] Checking for python3"
 which python3 || (echo "[!] Python3 missing"; exit 1)
+echo "[*] Checking for node"
+which node || (echo "[!] node missing"; exit 1)
 echo "[*] Checking for npm"
 which npm || (echo "[!] npm missing"; exit 1)
 cd ui
