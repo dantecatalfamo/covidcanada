@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Card, Row, Col, Statistic, Typography, Button, Divider } from 'antd';
+import { Layout, Card, Row, Col, Statistic, Typography, Button, Divider, Spin } from 'antd';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import CanadaChart from './CanadaChart';
 import ProvinceChart from './ProvinceChart';
@@ -27,6 +27,16 @@ function toCanada(provinces) {
   return canadaArray;
 }
 
+function LoadingCard(props) {
+  return (
+    <Spin>
+      <Card>
+        <div style={{height: 300}}/>
+      </Card>
+    </Spin>
+  );
+}
+
 function App() {
   const [provinces, setProvinces] = useState({});
 
@@ -39,6 +49,8 @@ function App() {
 
   const canadaData = provinceArray.length ? toCanada(provinceArray) : {};
   const canadaChart = canadaData.length ? <CanadaChart data={canadaData} /> : null;
+
+  const loadingCard = canadaChart ? null : <LoadingCard />;
 
   return (
     <div className="App">
@@ -58,6 +70,7 @@ function App() {
               <div style={{marginTop: 8, marginBottom: 8}}>
                 <Row>
                   <Col>
+                    {loadingCard}
                     {canadaChart}
                   </Col>
                 </Row>
