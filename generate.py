@@ -45,6 +45,8 @@ for province_line in confirmed:
     province = province_line[0]
     if province == "Province/State":
         continue
+    if province == "Grand Princess":
+        continue
     provinces[province] = []
     for num, date in enumerate(header):
         if num <= 3:
