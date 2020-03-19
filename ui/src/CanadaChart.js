@@ -3,6 +3,8 @@ import { Card, Row, Col, Statistic } from 'antd';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { getArrow, provinceColours } from './helpers';
 
+const canadaPopulation = 37647676; // March 19, 2020; https://www.worldometers.info/world-population/canada-population/
+
 function canadaConfirmed(day) {
   const values = Object.entries(day).map(([key, value]) => {
     return key === "date" ? 0 : value;
@@ -19,6 +21,7 @@ function CanadaChart(props) {
   const confirmedIncrease = confirmedCurrent - confirmedLast;
   const confirmedArrow = getArrow(confirmedIncrease);
   const confirmedPercent = 100 * confirmedIncrease / confirmedLast;
+  const confirmedPer100k = 100000 * confirmedCurrent / canadaPopulation;
   return (
     <Card title="Confirmed Canada-wide">
       <Row>
@@ -55,6 +58,11 @@ function CanadaChart(props) {
             <Statistic
               title="Confirmed"
               value={confirmedCurrent}
+            />
+            <Statistic
+              title="Confirmed Per 100k Population"
+              value={confirmedPer100k}
+              precision={2}
             />
             <Statistic
               title="Confirmed/24h"
