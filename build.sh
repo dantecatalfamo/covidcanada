@@ -13,8 +13,14 @@ echo "[*] Clearing old build"
 rm -rf build
 echo "[*] Building..."
 npm run-script build
+if [ "$?" -ne 0 ]; then
+    echo "[!] Build failed"
+    exit 1
+fi
+echo "[*] Removing old live"
+rm -rf ../live-old
 echo "[*] Clearing current live"
-rm -rf ../live
+mv ../live ../live-old
 echo "[*] Moving to live directory"
 mv build ../live
 echo "[*] Generating new data"
