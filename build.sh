@@ -9,6 +9,10 @@ which npm || (echo "[!] npm missing"; exit 1)
 cd ui
 echo "[*] Installing NPM Packages"
 npm install
+if [ "$?" -ne 0 ]; then
+    echo "[!] Failed npm install"
+    exit 1
+fi
 echo "[*] Clearing old build"
 rm -rf build
 echo "[*] Building..."
