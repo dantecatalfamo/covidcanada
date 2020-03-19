@@ -3,7 +3,7 @@ import { Card, Row, Col, Statistic } from 'antd';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { getArrow, percentChange } from './helpers';
 
-function ProvinceGraph(props) {
+function ProvinceChart(props) {
   const province = props.province;
   const data = props.data;
   const confirmedCurrent = data[data.length-1].confirmed;
@@ -61,10 +61,8 @@ function ProvinceGraph(props) {
                 <Col span={16}>
                   <Statistic
                     title="Confirmed/24h"
-                    value={confirmedPercent}
+                    value={confirmedIncrease}
                     prefix={confirmedArrow}
-                    precision={2}
-                    suffix="%"
                   />
                 </Col>
               </Row>
@@ -78,10 +76,8 @@ function ProvinceGraph(props) {
                 <Col span={16}>
                   <Statistic
                     title="Recovered/24h"
-                    value={recoveredPercent}
+                    value={recoveredIncrease}
                     prefix={recoveredArrow}
-                    precision={2}
-                    suffix="%"
                   />
                 </Col>
               </Row>
@@ -95,10 +91,8 @@ function ProvinceGraph(props) {
                 <Col span={16}>
                   <Statistic
                     title="Deaths/24h"
-                    value={deathsPercent}
+                    value={deathsIncrease}
                     prefix={deathsArrow}
-                    precision={2}
-                    suffix="%"
                   />
                 </Col>
               </Row>
@@ -110,4 +104,4 @@ function ProvinceGraph(props) {
   );
 }
 
-export default ProvinceGraph;
+export default ProvinceChart;

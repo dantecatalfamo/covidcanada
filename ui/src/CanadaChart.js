@@ -10,7 +10,7 @@ function canadaConfirmed(day) {
   return values.reduce((a, b) => a + b);
 }
 
-function CanadaGraph(props) {
+function CanadaChart(props) {
   const data = props.data;
   const dayCurrent = data[data.length-1];
   const dayLast = data[data.length-2];
@@ -58,6 +58,11 @@ function CanadaGraph(props) {
             />
             <Statistic
               title="Confirmed/24h"
+              prefix={confirmedArrow}
+              value={confirmedIncrease}
+            />
+            <Statistic
+              title="Percent/24h"
               value={confirmedPercent}
               precision={2}
               prefix={confirmedArrow}
@@ -70,4 +75,4 @@ function CanadaGraph(props) {
   );
 }
 
-export default CanadaGraph;
+export default CanadaChart;
