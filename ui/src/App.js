@@ -83,18 +83,24 @@ function App() {
           <Row>
             <Col span={20} offset={2}>
               <Card title="Further Reading">
-                <Button
-                  href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html"
-                  type="link"
-                >Government of Canada</Button>
-                <Button
-                  href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
-                  type="link"
-                >World Health Organization</Button>
-                <Button
-                  href="https://www.cbc.ca/news/coronavirus-guide-explainer-1.5497009"
-                  type="link"
-                >CBC</Button>
+                <div className="App-readingbuttons">
+                  <Button
+                    href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html"
+                    danger
+                  >Government of Canada</Button>
+                </div>
+                <div className="App-readingbuttons">
+                  <Button
+                    href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+                    danger
+                  >World Health Organization</Button>
+                </div>
+                <div className="App-readingbuttons">
+                  <Button
+                    href="https://www.cbc.ca/news/coronavirus-guide-explainer-1.5497009"
+                    danger
+                  >CBC</Button>
+                </div>
               </Card>
             </Col>
           </Row>
