@@ -53,9 +53,7 @@ function App() {
 
   const canadaData = provinceArray.length ? toCanada(provinceArray) : {};
   const canadaChart = canadaData.length ? <CanadaChart data={canadaData} /> : null;
-
   const loadingCard = canadaChart ? null : <LoadingCard />;
-
   const sourceBanner = showSourceBanner ? (
     <Alert
       type="info"
