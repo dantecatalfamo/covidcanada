@@ -97,7 +97,7 @@ function App() {
           </Row>
           <Row>
             <Col span={20} offset={2}>
-              <Card title="Further Reading">
+              <Card title="More Information">
                 <div className="App-readingbuttons">
                   <Button
                     href="https://www.canada.ca/en/public-health/services/diseases/2019-novel-coronavirus-infection.html"
