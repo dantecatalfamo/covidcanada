@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Layout, Card, Row, Col, Statistic, Typography, Button, Divider, Spin } from 'antd';
+import { Layout, Card, Row, Col, Statistic, Typography, Button, Divider, Spin, Alert } from 'antd';
 import CanadaChart from './CanadaChart';
 import ProvinceChart from './ProvinceChart';
-import { useJsonUpdates, getArrow, percentChange, compareProvinces } from './helpers';
+import { useJsonUpdates, getArrow, percentChange, compareProvinces, useStateWithLocalStorage } from './helpers';
 import 'antd/dist/antd.css';
 import './App.css';
 
@@ -38,10 +38,15 @@ function LoadingCard(props) {
 
 function App() {
   const [provinces, setProvinces] = useState({});
+  const [showSourceBanner, setShowSourceBanner] = useStateWithLocalStorage('showSourceBanner', true);
+
+  const toggleSourceBanner = () => setShowSourceBanner(v => !v);
 
   useJsonUpdates(provincesURL, setProvinces, updateTime);
+
   const provinceArray = Object.entries(provinces).map(([province, data]) => ({province, data}));
   provinceArray.sort(compareProvinces);
+
   const provinceCharts = provinceArray.length ? provinceArray.map(
     ({province, data}) => <ProvinceChart province={province} data={data} />
   ) : [];
@@ -50,6 +55,15 @@ function App() {
   const canadaChart = canadaData.length ? <CanadaChart data={canadaData} /> : null;
 
   const loadingCard = canadaChart ? null : <LoadingCard />;
+
+  const sourceBanner = showSourceBanner ? (
+    <Alert
+      type="info"
+      message={<span>Data from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>, pulled once an hour</span>}
+      afterClose={toggleSourceBanner}
+      closable
+    />
+  ) : null;
 
   return (
     <div className="App">
@@ -67,7 +81,10 @@ function App() {
           <Row>
             <Col span={20} offset={2}>
               <div style={{marginTop: 8, marginBottom: 8}}>
-                <Row>
+                <Row gutter={[8, 8]}>
+                  <Col span={24}>
+                    {sourceBanner}
+                  </Col>
                   <Col>
                     {loadingCard}
                     {canadaChart}

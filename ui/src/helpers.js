@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowUpOutlined, ArrowDownOutlined, MinusOutlined } from '@ant-design/icons';
 
 export const provinceColours = {
@@ -62,4 +62,15 @@ export function compareProvinces(a, b) {
     return 1;
   }
   return 0;
+}
+
+export function useStateWithLocalStorage(key, defaultValue) {
+  const storedVal = JSON.parse(localStorage.getItem(key));
+  const initVal = storedVal !== null ? storedVal : defaultValue;
+
+  const [value, setValue] = useState(initVal);
+
+  useEffect(() => localStorage.setItem(key, value), [value]);
+
+  return [value, setValue];
 }
