@@ -8,6 +8,7 @@ export const provinceColours = {
   "Manitoba": "purple",
   "New Brunswick": "orange",
   "Newfoundland and Labrador": "green",
+  "Northwest Territories": "#ff3399",
   "Nova Scotia": "navy",
   "Ontario": "red",
   "Prince Edward Island": "brown",
