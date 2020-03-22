@@ -75,7 +75,7 @@ function CanadaChart(props) {
               title="Confirmed Per 100k Population"
               value={confirmedPer100k}
               precision={2}
-            />s
+            />
           </Card>
         </Col>
       </Row>
