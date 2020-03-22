@@ -60,11 +60,6 @@ function CanadaChart(props) {
               value={confirmedCurrent}
             />
             <Statistic
-              title="Confirmed Per 100k Population"
-              value={confirmedPer100k}
-              precision={2}
-            />
-            <Statistic
               title="Confirmed/24h"
               prefix={confirmedArrow}
               value={confirmedIncrease}
@@ -76,6 +71,11 @@ function CanadaChart(props) {
               prefix={confirmedArrow}
               suffix="%"
             />
+            <Statistic
+              title="Confirmed Per 100k Population"
+              value={confirmedPer100k}
+              precision={2}
+            />s
           </Card>
         </Col>
       </Row>
