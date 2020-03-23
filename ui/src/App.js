@@ -116,6 +116,12 @@ function App() {
                     danger
                   >CBC</Button>
                 </div>
+                <div className="App-readingbuttons">
+                  <Button
+                    href="https://www.coronasafe.in/"
+                    danger
+                  >Corona Safe</Button>
+                </div>
               </Card>
             </Col>
           </Row>
