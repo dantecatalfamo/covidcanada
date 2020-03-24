@@ -57,7 +57,7 @@ function App() {
   const accuracyBanner = (
     <Alert
       type="error"
-      message={<span>Yesterday's results <a href="https://www.ontario.ca/page/2019-novel-coronavirus">do not appear to be accurate</a>. Johns Hopkins may not have compiled them correctly, or may have accidentally published incorrect numbers.</span>}
+      message={<span>Yesterday's results <a href="https://www.ontario.ca/page/2019-novel-coronavirus">are not accurate</a>. Johns Hopkins has changed their data format, this site will be updated to reflect the new data shortly.</span>}
     />
   );
   const sourceBanner = showSourceBanner ? (
