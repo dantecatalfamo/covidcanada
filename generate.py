@@ -26,12 +26,12 @@ else:
 
 os.chdir("csse_covid_19_data/csse_covid_19_time_series/")
 
-with open("time_series_19-covid-Confirmed.csv") as csvfile:
+with open("time_series_covid19_confirmed_global.csv") as csvfile:
     reader = csv.reader(csvfile)
     header = reader.__next__()
     confirmed = [x for x in reader if x[1] == "Canada"]
 
-with open("time_series_19-covid-Deaths.csv") as csvfile:
+with open("time_series_covid19_deaths_global.csv") as csvfile:
     reader = csv.reader(csvfile)
     deaths = [x for x in reader if x[1] == "Canada"]
 
@@ -41,23 +41,39 @@ with open("time_series_19-covid-Recovered.csv") as csvfile:
 
 provinces = {}
 
+def get_province_recovered(province, col):
+    for line in recovered:
+        if line[0] == province:
+            if len(line) > col-1:
+                return line[col]
+            return line[-1]
+
+def get_province_deaths(province, col):
+    for line in deaths:
+        if line[0] == province:
+            if len(line) > col-1:
+                return line[col]
+            return line[-1]
+
 for province_line in confirmed:
     province = province_line[0]
     if province == "Province/State":
         continue
     if province == "Grand Princess":
         continue
+    if province == "Diamond Princess":
+        continue
     provinces[province] = []
-    for num, date in enumerate(header):
-        if num <= 3:
+    for col, date in enumerate(header):
+        if col <= 3:
             continue
-        province_confirm = province_line[num]
-        province_recovered = [x for x in recovered if x[0] == province][0][num]
-        province_deaths = [x for x in deaths if x[0] == province][0][num]
+        province_confirm = province_line[col]
+        province_recovered = get_province_recovered(province, col)
+        province_deaths = get_province_deaths(province, col)
         day = {
             "date": rewrite_date(date),
             "confirmed": int(province_confirm),
-                "recovered": int(province_recovered),
+            "recovered": int(province_recovered),
             "deaths": int(province_deaths),
         }
         provinces[province].append(day)
