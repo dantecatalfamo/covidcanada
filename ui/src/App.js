@@ -54,12 +54,6 @@ function App() {
   const canadaData = provinceArray.length ? toCanada(provinceArray) : {};
   const canadaChart = canadaData.length ? <CanadaChart data={canadaData} /> : null;
   const loadingCard = canadaChart ? null : <LoadingCard />;
-  const accuracyBanner = (
-    <Alert
-      type="error"
-      message={<span>Yesterday's results <a href="https://www.ontario.ca/page/2019-novel-coronavirus">are not accurate</a>. Johns Hopkins has changed their data format, this site will be updated to reflect the new data shortly.</span>}
-    />
-  );
   const sourceBanner = showSourceBanner ? (
     <Alert
       type="info"
@@ -87,7 +81,6 @@ function App() {
               <div style={{marginTop: 8, marginBottom: 8}}>
                 <Row gutter={[8, 8]}>
                   <Col span={24}>
-                    {accuracyBanner}
                     {sourceBanner}
                   </Col>
                   <Col>
