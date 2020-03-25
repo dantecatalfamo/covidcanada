@@ -72,6 +72,7 @@ for province_line in confirmed:
         province_confirm = province_line[col]
         province_recovered = get_province_recovered(province, col)
         province_deaths = get_province_deaths(province, col)
+        print("province:", province, "date:", date, "confirmed:", province_confirm, "recovered:", province_recovered, "deaths:", province_deaths)
         day = {
             "date": rewrite_date(date),
             "confirmed": int(province_confirm),
