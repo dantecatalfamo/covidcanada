@@ -44,14 +44,14 @@ provinces = {}
 def get_province_recovered(province, col):
     for line in recovered:
         if line[0] == province:
-            if len(line) > col-1:
+            if len(line) < col-1:
                 return line[col]
             return line[-1]
 
 def get_province_deaths(province, col):
     for line in deaths:
         if line[0] == province:
-            if len(line) > col-1:
+            if len(line) < col-1:
                 return line[col]
             return line[-1]
 
