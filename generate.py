@@ -63,6 +63,8 @@ for province_line in confirmed:
         continue
     if province == "Diamond Princess":
         continue
+    if province == "Recovered":
+        continue
     provinces[province] = []
     for col, date in enumerate(header):
         if col <= 3:
