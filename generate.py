@@ -35,7 +35,7 @@ with open("time_series_covid19_deaths_global.csv") as csvfile:
     reader = csv.reader(csvfile)
     deaths = [x for x in reader if x[1] == "Canada"]
 
-# with open("time_series_19-covid-Recovered.csv") as csvfile:
+# with open("time_series_covid19_recovered_global.csv") as csvfile:
 #     reader = csv.reader(csvfile)
 #     recovered = [x for x in reader if x[1] == "Canada"]
 
