@@ -39,8 +39,10 @@ function LoadingCard(props) {
 function App() {
   const [provinces, setProvinces] = useState({});
   const [showSourceBanner, setShowSourceBanner] = useStateWithLocalStorage('showSourceBanner', true);
+  const [showRecoveredBanner, setShowRecoveredBanner] = useStateWithLocalStorage('showRecoveredBanner', true);
 
   const toggleSourceBanner = () => setShowSourceBanner(v => !v);
+  const toggleRecoveredBanner = () => setShowRecoveredBanner(v => !v);
 
   useJsonUpdates(provincesURL, setProvinces, updateTime);
 
@@ -59,6 +61,14 @@ function App() {
       type="info"
       message={<span>Data from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>, updated daily</span>}
       afterClose={toggleSourceBanner}
+      closable
+    />
+  ) : null;
+  const recoveredBanner = showRecoveredBanner ? (
+    <Alert
+      type="info"
+      message={<span>The <a href="https://github.com/CSSEGISandData/COVID-19">data source</a> has removed the recovered cases per province</span>}
+      afterClose={toggleRecoveredBanner}
       closable
     />
   ) : null;
@@ -82,6 +92,7 @@ function App() {
                 <Row gutter={[8, 8]}>
                   <Col span={24}>
                     {sourceBanner}
+                    {recoveredBanner}
                   </Col>
                   <Col>
                     {loadingCard}
