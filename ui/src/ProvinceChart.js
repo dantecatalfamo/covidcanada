@@ -35,7 +35,7 @@ function ProvinceChart(props) {
               <ResponsiveContainer height={200} width="100%">
                 <LineChart data={data}>
                   <Line type="monotone" dot={false} dataKey="confirmed" name="Confirmed" />
-                  <Line type="monotone" dot={false} dataKey="recovered" name="Recovered" stroke="green"/>
+                  {/* <Line type="monotone" dot={false} dataKey="recovered" name="Recovered" stroke="green"/> */}
                   <Line type="monotone" dot={false} dataKey="deaths" name="Deaths" stroke="red"/>
                   <Tooltip/>
                   <Legend/>
@@ -66,21 +66,21 @@ function ProvinceChart(props) {
                   />
                 </Col>
               </Row>
-              <Row>
-                <Col span={8}>
-                  <Statistic
-                    title="Recovered"
-                    value={recoveredCurrent}
-                  />
-                </Col>
-                <Col span={16}>
-                  <Statistic
-                    title="Recovered/24h"
-                    value={recoveredIncrease}
-                    prefix={recoveredArrow}
-                  />
-                </Col>
-              </Row>
+              {/* <Row> */}
+              {/*   <Col span={8}> */}
+              {/*     <Statistic */}
+              {/*       title="Recovered" */}
+              {/*       value={recoveredCurrent} */}
+              {/*     /> */}
+              {/*   </Col> */}
+              {/*   <Col span={16}> */}
+              {/*     <Statistic */}
+              {/*       title="Recovered/24h" */}
+              {/*       value={recoveredIncrease} */}
+              {/*       prefix={recoveredArrow} */}
+              {/*     /> */}
+              {/*   </Col> */}
+              {/* </Row> */}
               <Row>
                 <Col span={8}>
                   <Statistic
