@@ -35,9 +35,9 @@ with open("time_series_covid19_deaths_global.csv") as csvfile:
     reader = csv.reader(csvfile)
     deaths = [x for x in reader if x[1] == "Canada"]
 
-with open("time_series_19-covid-Recovered.csv") as csvfile:
-    reader = csv.reader(csvfile)
-    recovered = [x for x in reader if x[1] == "Canada"]
+# with open("time_series_19-covid-Recovered.csv") as csvfile:
+#     reader = csv.reader(csvfile)
+#     recovered = [x for x in reader if x[1] == "Canada"]
 
 provinces = {}
 
@@ -70,13 +70,13 @@ for province_line in confirmed:
         if col <= 3:
             continue
         province_confirm = province_line[col]
-        province_recovered = get_province_recovered(province, col)
+        # province_recovered = get_province_recovered(province, col)
         province_deaths = get_province_deaths(province, col)
-        print("province:", province, "date:", date, "confirmed:", province_confirm, "recovered:", province_recovered, "deaths:", province_deaths)
+        # print("province:", province, "date:", date, "confirmed:", province_confirm, "recovered:", province_recovered, "deaths:", province_deaths)
         day = {
             "date": rewrite_date(date),
             "confirmed": int(province_confirm),
-            "recovered": int(province_recovered),
+            # "recovered": int(province_recovered),
             "deaths": int(province_deaths),
         }
         provinces[province].append(day)
