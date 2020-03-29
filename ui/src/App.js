@@ -92,6 +92,8 @@ function App() {
                 <Row gutter={[8, 8]}>
                   <Col span={24}>
                     {sourceBanner}
+                  </Col>
+                  <Col span={24}>
                     {recoveredBanner}
                   </Col>
                   <Col>
