@@ -57,20 +57,24 @@ function App() {
   const canadaChart = canadaData.length ? <CanadaChart data={canadaData} /> : null;
   const loadingCard = canadaChart ? null : <LoadingCard />;
   const sourceBanner = showSourceBanner ? (
-    <Alert
-      type="info"
-      message={<span>Data from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>, updated daily</span>}
-      afterClose={toggleSourceBanner}
-      closable
-    />
+    <Col span={24}>
+      <Alert
+        type="info"
+        message={<span>Data from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>, updated daily</span>}
+        afterClose={toggleSourceBanner}
+        closable
+      />
+    </Col>
   ) : null;
   const recoveredBanner = showRecoveredBanner ? (
-    <Alert
-      type="info"
-      message={<span>The <a href="https://github.com/CSSEGISandData/COVID-19">data source</a> has removed the recovered cases per province</span>}
-      afterClose={toggleRecoveredBanner}
-      closable
-    />
+    <Col span={24}>
+      <Alert
+        type="info"
+        message={<span>The <a href="https://github.com/CSSEGISandData/COVID-19">data source</a> has removed the recovered cases per province</span>}
+        afterClose={toggleRecoveredBanner}
+        closable
+      />
+    </Col>
   ) : null;
 
   return (
@@ -90,12 +94,8 @@ function App() {
             <Col span={20} offset={2}>
               <div style={{marginTop: 8, marginBottom: 8}}>
                 <Row gutter={[8, 8]}>
-                  <Col span={24}>
-                    {sourceBanner}
-                  </Col>
-                  <Col span={24}>
-                    {recoveredBanner}
-                  </Col>
+                  {sourceBanner}
+                  {recoveredBanner}
                   <Col>
                     {loadingCard}
                     {canadaChart}
